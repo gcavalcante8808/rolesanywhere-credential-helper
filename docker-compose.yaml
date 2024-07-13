@@ -1,6 +1,16 @@
 services:
   helper:
     image: gcavalcante8808/rolesanywhere-credential-helper:${VERSION:-v1.1.1}
+    environment:
+      CREATE_AWS_CREDENTIALS_FILE: 1
+      CREDENTIALS_FILE_PATH: "/root/.aws/credentials"
+      CERTIFICATE_FILE_PATH: "/etc/ira/ssl/tls.crt"
+      CERTIFICATE_KEY_PATH: "/etc/ira/ssl/tls.key"
+      TRUST_ANCHOR_ARN: arn:aws:rolesanywhere:us-east-1:000000000000:trust-anchor/00000000-0000-0000-0000-000000000000
+      PROFILE_ARN: arn:aws:rolesanywhere:us-east-1:000000000000:profile/00000000-0000-0000-0000-000000000000
+      ROLE_ARN: arn:aws:iam::000000000000:role/terraform-controller
+    volumes:
+      - ./docker-entrypoint.sh:/entrypoint
     build:
       context: .
       tags:
