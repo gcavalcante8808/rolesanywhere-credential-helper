@@ -7,4 +7,6 @@ RUN cd rolesanywhere-credential-helper && \
 
 FROM debian:12-slim
 COPY --from=builder /usr/src/rolesanywhere-credential-helper/build/bin/aws_signing_helper /usr/bin/aws_signing_helper
-ENTRYPOINT ["/usr/bin/aws_signing_helper"]
+COPY ./docker-entrypoint.sh /entrypoint
+RUN chmod +x /entrypoint
+ENTRYPOINT ["/entrypoint"]
