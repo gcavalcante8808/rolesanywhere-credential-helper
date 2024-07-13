@@ -20,7 +20,7 @@ builds for arm64 and amd64.
 You can call the image directly using the following command:
 
 ```bash
-docker run -it --rm gcavalcante8808/rolesanywhere-credential-helper:v1.1.1 versoin
+docker run -it --rm gcavalcante8808/rolesanywhere-credential-helper:v1.1.1 version
 ```
 
 You can also copy the binary in your docker image by using the following statement in your Dockerfile:
