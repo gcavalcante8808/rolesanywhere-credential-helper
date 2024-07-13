@@ -1,0 +1,19 @@
+services:
+  helper:
+    image: gcavalcante8808/rolesanywhere-credential-helper:${VERSION:-v1.1.1}
+    build:
+      context: .
+      tags:
+        - gcavalcante8808/rolesanywhere-credential-helper:${VERSION:-v1.1.1}
+      args:
+        VERSION: ${VERSION:-v1.1.1}
+      cache_from:
+        - type=gha,mode=max
+      cache_to:
+        - type=gha,mode=max
+      x-bake:
+        platforms:
+          - linux/amd64
+          - linux/arm64
+    command:
+      - version
