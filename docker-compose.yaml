@@ -1,6 +1,4 @@
-services:
-  helper:
-    image: gcavalcante8808/rolesanywhere-credential-helper:${VERSION:-v1.1.1}
+x-defaults: &defaults
     environment:
       CREATE_AWS_CREDENTIALS_FILE: 1
       CREDENTIALS_FILE_PATH: "/root/.aws/credentials"
@@ -9,14 +7,10 @@ services:
       TRUST_ANCHOR_ARN: arn:aws:rolesanywhere:us-east-1:000000000000:trust-anchor/00000000-0000-0000-0000-000000000000
       PROFILE_ARN: arn:aws:rolesanywhere:us-east-1:000000000000:profile/00000000-0000-0000-0000-000000000000
       ROLE_ARN: arn:aws:iam::000000000000:role/terraform-controller
-    volumes:
-      - ./docker-entrypoint.sh:/entrypoint
     build:
       context: .
-      tags:
-        - gcavalcante8808/rolesanywhere-credential-helper:${VERSION:-v1.1.1}
       args:
-        VERSION: ${VERSION:-v1.1.1}
+        VERSION:
       cache_from:
         - type=gha,mode=max
       cache_to:
@@ -27,3 +21,18 @@ services:
           - linux/arm64
     command:
       - version
+
+services:
+  helper-alpine:
+    << : *defaults
+    image: gcavalcante8808/rolesanywhere-credential-helper:${VERSION:-v1.1.1}_alpine3.19
+    build:
+      target: alpine-target
+
+  helper-debian:
+    << : *defaults
+    image: gcavalcante8808/rolesanywhere-credential-helper:${VERSION:-v1.1.1}_bookworm
+    build:
+      target: debian-target
+      tags:
+        - gcavalcante8808/rolesanywhere-credential-helper:${VERSION:-v1.1.1}
