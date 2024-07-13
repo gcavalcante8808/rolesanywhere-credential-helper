@@ -36,3 +36,4 @@ services:
       target: debian-target
       tags:
         - gcavalcante8808/rolesanywhere-credential-helper:${VERSION:-v1.1.1}
+        - gcavalcante8808/rolesanywhere-credential-helper:${VERSION:-v1.1.1}_bookworm
