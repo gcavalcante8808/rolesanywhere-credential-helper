@@ -36,15 +36,15 @@ COPY --from=gcavalcante8808/rolesanywhere-credential-helper:v1.1.1 /usr/bin/aws_
 
 It's possible to create a `credentials file` automatically by settings the following environment variables:
 
-| Environment Variable        | Description                                                                                       | Default                                                                                                    | Required?                                  |
-| --------------------------- | ------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------ |
-| CREATE_AWS_CREDENTIALS_FILE | Should the entrypoint create an aws credential file? Any value set here will enable the behavior. | Empty - the file is not created by default.                                                                | NO                                         |
-| CREDENTIALS_FILE_PATH       | Where should the entrypoint create the `credentials` file?                                        | If not provided, `${HOME}/.aws` is assumed, which translates to `/root/.aws` in the default configuration. | NO                                         |
-| CERTIFICATE_FILE_PATH       | Filesystem full path of the PEM public Key.                                                       | N/A                                                                                                        | when `CREATE_AWS_CREDENTIALS_FILE` is set. |
-| CERTIFICATE_KEY_PATH        | Filesystem Full Path of the PEM private key.                                                      | N/A                                                                                                        | when `CREATE_AWS_CREDENTIALS_FILE` is set. |
-| TRUST_ANCHOR_ARN            | AWS Roles Anywhere Trust Anchor ARN.                                                              | N/A                                                                                                        | when `CREATE_AWS_CREDENTIALS_FILE` is set. |
-| PROFILE_ARN                 | AWS Roles Anywhere Trust Profile ARN.                                                             | N/A                                                                                                        | when `CREATE_AWS_CREDENTIALS_FILE` is set. |
-| ROLE_ARN                    | AWS IAM Role ARN.                                                                                 | N/A                                                                                                        | when `CREATE_AWS_CREDENTIALS_FILE` is set. |
+| Environment Variable        | Description                                                                                       | Default                                     | Required?                                  |
+| --------------------------- |---------------------------------------------------------------------------------------------------|---------------------------------------------| ------------------------------------------ |
+| CREATE_AWS_CREDENTIALS_FILE | Should the entrypoint create an aws credential file? Any value set here will enable the behavior. | Empty - the file is not created by default. | NO                                         |
+| CREDENTIALS_FILE_PATH       | Where should the entrypoint create the `credentials` file? Eg: /home/user/.aws/credentials     | N?A.                                        | NO                                         |
+| CERTIFICATE_FILE_PATH       | Filesystem full path of the PEM public Key.                                                       | N/A                                         | when `CREATE_AWS_CREDENTIALS_FILE` is set. |
+| CERTIFICATE_KEY_PATH        | Filesystem Full Path of the PEM private key.                                                      | N/A                                         | when `CREATE_AWS_CREDENTIALS_FILE` is set. |
+| TRUST_ANCHOR_ARN            | AWS Roles Anywhere Trust Anchor ARN.                                                              | N/A                                         | when `CREATE_AWS_CREDENTIALS_FILE` is set. |
+| PROFILE_ARN                 | AWS Roles Anywhere Trust Profile ARN.                                                             | N/A                                         | when `CREATE_AWS_CREDENTIALS_FILE` is set. |
+| ROLE_ARN                    | AWS IAM Role ARN.                                                                                 | N/A                                         | when `CREATE_AWS_CREDENTIALS_FILE` is set. |
 
 The credentials file created use the external authentication format like the one bellow:
 
