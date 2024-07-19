@@ -13,7 +13,7 @@
 <br>
 
 This repository serves as a source for `gcavalcante8808/rolesanywhere-credential-helper` docker image with daily Linux
-builds for arm64 and amd64.
+builds for arm64 and amd64, with Debian and Alpine builds.
 
 ## Usage
 
@@ -21,6 +21,12 @@ You can call the image directly using the following command:
 
 ```bash
 docker run -it --rm gcavalcante8808/rolesanywhere-credential-helper:v1.1.1 version
+```
+
+It's also possible to use an alpine variant:
+
+```bash
+docker run -it --rm gcavalcante8808/rolesanywhere-credential-helper:v1.1.1_alpine3.19 version
 ```
 
 You can also copy the binary in your docker image by using the following statement in your Dockerfile:

@@ -4,6 +4,7 @@ set -euo pipefail
 
 
 if [[ -n "${CREATE_AWS_CREDENTIALS_FILE:-}" ]]; then
+  echo "Create ${CREDENTIALS_FILE_PATH%/*} if needed."
   mkdir -p "${CREDENTIALS_FILE_PATH%/*}"
 
   cat > "${CREDENTIALS_FILE_PATH}" <<- EOF
