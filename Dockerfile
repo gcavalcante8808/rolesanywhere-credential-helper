@@ -1,5 +1,5 @@
 FROM python:3.12 AS wrapper-builder
-RUN apt-get update && apt-get install patchelf -y
+RUN apt-get update && apt-get install patchelf scons -y
 WORKDIR /usr/src
 COPY wrapper/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
