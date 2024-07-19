@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
 ## A very simple script copied from https://github.com/hashicorp/vault/issues/12568 that help in cases where
-# the target binary doesn't have support to use local profiles.
+## the target binary doesn't have support to use local profiles.
+
+
 import os
 import sys
 
