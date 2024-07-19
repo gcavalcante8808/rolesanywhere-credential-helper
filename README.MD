@@ -55,6 +55,46 @@ The credentials file created use the external authentication format like the one
 
 Check https://docs.aws.amazon.com/rolesanywhere/latest/userguide/credential-helper.html#credential-helper-examples for details regarding the helper command.
 
+### Bonus: aws-credentials-wrapper static binary
+
+For specific cases, eg projects using old versions of aws-sdk-go, when the local profiles are not read/respected by the target binary, this image provides a very simple and small static binary called `aws-credentials-wrapper` which has the following code:
+
+```python
+#!/usr/bin/env python3
+
+## A very simple script copied from https://github.com/hashicorp/vault/issues/12568 that help in cases where
+## the target binary doesn't have support to use local profiles.
+
+
+import os
+import sys
+
+import boto3
+
+session = boto3.session.Session()
+
+creds = session.get_credentials()
+creds = creds.get_frozen_credentials()
+
+os.environ["AWS_ACCESS_KEY_ID"] = creds.access_key
+os.environ["AWS_SECRET_ACCESS_KEY"] = creds.secret_key
+os.environ["AWS_SESSION_TOKEN"] = creds.token
+
+os.system(" ".join(sys.argv[1:]))
+```
+
+You can use the binary in the following way:
+
+```commandline
+docker run -it --rm --entrypoint /usr/bin/aws-credentials-wrapper  gcavalcante8808/rolesanywhere-credential-helper:v1.1.1 ./some-small-program-that-relies-on-aws-credentials-to-work
+```
+
+You can also copy it to your image by using the following Dockerfile statement:
+
+```dockerfile
+COPY --from=gcavalcante8808/rolesanywhere-credential-helper:v1.1.1 /usr/bin/aws-credentials-wrapper /usr/bin/aws-credentials-wrapper
+```
+
 ### Author
 
 Author: Gabriel Cavalcante (gabriel.cavalcante88 at gmail.com)
