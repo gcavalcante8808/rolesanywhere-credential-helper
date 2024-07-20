@@ -7,18 +7,6 @@ x-defaults: &defaults
       TRUST_ANCHOR_ARN: arn:aws:rolesanywhere:us-east-1:000000000000:trust-anchor/00000000-0000-0000-0000-000000000000
       PROFILE_ARN: arn:aws:rolesanywhere:us-east-1:000000000000:profile/00000000-0000-0000-0000-000000000000
       ROLE_ARN: arn:aws:iam::000000000000:role/terraform-controller
-    build:
-      context: .
-      args:
-        VERSION:
-      cache_from:
-        - type=gha,mode=max
-      cache_to:
-        - type=gha,mode=max
-      x-bake:
-        platforms:
-          - linux/amd64
-          - linux/arm64
     command:
       - version
 
@@ -27,13 +15,33 @@ services:
     << : *defaults
     image: gcavalcante8808/rolesanywhere-credential-helper:${VERSION:-v1.1.1}_alpine3.19
     build:
+      context: .
+      args:
+        VERSION: v1.1.1
       target: alpine-target
-
+      cache_from:
+        - type=gha,mode=max
+      cache_to:
+        - type=gha,mode=max
+      x-bake:
+        platforms:
+          - linux/amd64
+          - linux/arm64
   helper-debian:
     << : *defaults
     image: gcavalcante8808/rolesanywhere-credential-helper:${VERSION:-v1.1.1}_bookworm
     build:
       target: debian-target
+      args:
+        VERSION: v1.1.1
       tags:
         - gcavalcante8808/rolesanywhere-credential-helper:${VERSION:-v1.1.1}
         - gcavalcante8808/rolesanywhere-credential-helper:${VERSION:-v1.1.1}_bookworm
+      cache_from:
+        - type=gha,mode=max
+      cache_to:
+        - type=gha,mode=max
+      x-bake:
+        platforms:
+          - linux/amd64
+          - linux/arm64
