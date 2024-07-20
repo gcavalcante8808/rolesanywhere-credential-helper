@@ -1,0 +1,3 @@
+boto3==1.34.145
+pyinstaller==6.9.0
+staticx==0.14.1
