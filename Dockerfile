@@ -5,7 +5,8 @@ COPY wrapper/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY wrapper/wrapper.py .
 RUN pyinstaller -F wrapper.py && \
-    staticx dist/wrapper aws-credentials-wrapper
+    staticx dist/wrapper aws-credentials-wrapper && \
+    chmod 555 aws-credentials-wrapper
 
 FROM golang:1.22-alpine3.19 AS alpine-builder
 ARG VERSION=v1.1.1
