@@ -37,6 +37,7 @@ services:
       tags:
         - gcavalcante8808/rolesanywhere-credential-helper:${VERSION:-v1.1.1}
         - gcavalcante8808/rolesanywhere-credential-helper:${VERSION:-v1.1.1}_bookworm
+        - gcavalcante8808/rolesanywhere-credential-helper:latest
       cache_from:
         - type=gha,mode=max
       cache_to:
